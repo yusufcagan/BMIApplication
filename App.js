@@ -7,6 +7,7 @@ import {
   Text,
   useColorScheme,
   View,
+  Image,
 } from 'react-native';
 import { createStackNavigator } from "@react-navigation/stack"
 import { NavigationContainer } from '@react-navigation/native';
@@ -31,23 +32,57 @@ function ProgressScreen() {
     </View>
   );
 }
+
+
+
 function PredictionScreen() {
   return (
-    <View style={styles.header}>
-      <Text style={styles.headerText}>
-        Prediction
-      </Text>
-    </View>
+    <View style={{ flex: 1 }}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>
+          Prediction
+        </Text>
+      </View>
+
+      <View style={styles.center}>
+        <View style={{ alignSelf: 'center' }}>
+          <View style={styles.profile}>
+            <Image source={require('./assets/profile.jpg')} style={styles.Image} resizeMode="center" />
+          </View>
+          <Text style={{ color: 'black', textAlign: 'center', fontWeight: 'bold', fontSize: 20, }}>
+            yavuz
+          </Text>
+        </View>
+      </View>
+
+
+      <View style={styles.lower}>
+        <Text style={{ color: 'black', textAlign: 'center', fontWeight: 'bold', fontSize: 20, }}>
+          Your BMI category is :
+        </Text>
+        <Text style={{ color: 'green', textAlign: 'center', fontWeight: 'bold', fontSize: 18, }}>
+          yusuf
+        </Text>
+        <Text style={{ color: 'black', textAlign: 'center', fontWeight: 'bold', fontSize: 20, }}>
+          Your BMR  :
+        </Text>
+        <Text style={{ color: 'green', textAlign: 'center', fontWeight: 'bold', fontSize: 18, }}>
+          yusuf
+        </Text>
+      </View>
+    </View >
   );
 }
 
 const styles = StyleSheet.create({
+
   container: {
   },
 
   header: {
+    flex: 0.9,
     width: '100%',
-    height: '15%',
+    height: '25%',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: "dodgerblue",
@@ -55,11 +90,37 @@ const styles = StyleSheet.create({
 
   headerText: {
     fontWeight: 'bold',
-    color: '#171717',
+    color: "white",
     fontSize: 50,
     textAlign: 'center',
-  }
+  },
+  lower: {
+    justifyContent: 'center',
+    flex: 1.1,
+    white: "100%",
+    height: "45%",
+    backgroundColor: "gray",
+  },
+
+  center: {
+    backgroundColor: "white",
+    flex: 2.4,
+
+  },
+  profile: {
+    height: 200,
+    width: 200,
+    margin: 30,
+  },
+  Image: {
+    flex: 1,
+    height: 200,
+    width: 200,
+    borderRadius: 200,
+  },
+
 });
+
 
 const Tab = createBottomTabNavigator();
 
