@@ -7,7 +7,10 @@ import {
   Text,
   useColorScheme,
   View,
+  Button,
+  Alert,
   Image,
+  TouchableHighlight,
 } from 'react-native';
 import { createStackNavigator } from "@react-navigation/stack"
 import { NavigationContainer } from '@react-navigation/native';
@@ -15,11 +18,42 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 function HomeScreen() {
   return (
-    <View style={styles.header}>
-      <Text style={styles.headerText}>
-        Home
-      </Text>
-    </View>
+    <View style={{ flex: 1 }}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>
+          Home
+        </Text>
+      </View>
+
+      <View style={styles.center}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
+          <View style={styles.profileHome}>
+            <Image source={require('./assets/profile.jpg')} style={styles.ImageHome} />
+          </View>
+          <TouchableHighlight style={styles.buttonProfile}>
+            <Text style={{ TextAlign: 'center', fontSize: 20, fontWeight: 'bold', }}>BMR</Text>
+          </TouchableHighlight>
+        </View>
+      </View>
+
+
+      <View style={styles.lower}>
+        <Text style={{ color: 'black', textAlign: 'center', fontWeight: 'bold', fontSize: 20, margin: "5%", }}>
+          Calculate
+        </Text>
+
+        <View style={{ alignSelf: 'center', flexDirection: 'row', flex: 1, }}>
+          <TouchableHighlight style={styles.button}>
+            <Text style={{ TextAlign: 'center', fontSize: 20, fontWeight: 'bold', }}>BMI</Text>
+          </TouchableHighlight>
+
+          <TouchableHighlight style={styles.button}>
+            <Text style={{ TextAlign: 'center', fontSize: 20, fontWeight: 'bold', }}>BMR</Text>
+          </TouchableHighlight>
+        </View>
+
+      </View>
+    </View >
   );
 }
 
@@ -30,6 +64,7 @@ function ProgressScreen() {
         Progress
       </Text>
     </View>
+
   );
 }
 
@@ -78,7 +113,10 @@ const styles = StyleSheet.create({
 
   container: {
   },
-
+  fixToText: {
+    flexDirection: 'row',
+    justifyContent: "center",
+  },
   header: {
     flex: 0.9,
     width: '100%',
@@ -118,7 +156,34 @@ const styles = StyleSheet.create({
     width: 200,
     borderRadius: 200,
   },
-
+  button: {
+    borderColor: 'blue',
+    borderRadius: 20,
+    height: "50%",
+    width: "40%",
+    backgroundColor: "blue",
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: "5%",
+  },
+  profileHome: {
+    height: "79%",
+    width: "79%",
+  },
+  ImageHome: {
+    height: "100%",
+    width: "100%",
+    borderRadius: 50,
+  },
+  buttonProfile: {
+    borderColor: 'blue',
+    borderRadius: 20,
+    height: "25%",
+    width: "50%",
+    backgroundColor: "blue",
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 
