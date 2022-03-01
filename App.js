@@ -31,7 +31,9 @@ function HomeScreen() {
             <Image source={require('./assets/profile.jpg')} style={styles.ImageHome} />
           </View>
           <TouchableHighlight style={styles.buttonProfile}>
-            <Text style={{ TextAlign: 'center', fontSize: 20, fontWeight: 'bold', }}>BMR</Text>
+            <Text style={{ TextAlign: 'center', fontSize: 20, fontWeight: 'bold', }}>
+              Upload Image
+            </Text>
           </TouchableHighlight>
         </View>
       </View>
@@ -176,10 +178,13 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   buttonProfile: {
+    position: 'absolute',
+    bottom: "15%",
+    right: "21%",
     borderColor: 'blue',
     borderRadius: 20,
-    height: "25%",
-    width: "50%",
+    height: "29%",
+    width: "59%",
     backgroundColor: "blue",
     alignItems: 'center',
     justifyContent: 'center',
