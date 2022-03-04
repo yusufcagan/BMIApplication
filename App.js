@@ -2,8 +2,9 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, Text, View, Dimensions, Image, TouchableOpacity } from 'react-native';
 import { LineChart } from "react-native-chart-kit";
 import 'react-native-gesture-handler'
+import 'react-native-reanimated'
 import { createStackNavigator } from "@react-navigation/stack"
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Graph from './assets/graph.png';
@@ -11,10 +12,19 @@ import Home from './assets/home_icon.png';
 import Profile from './assets/profile.png'
 
 
-function HomeScreen() {
+function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.header}>
+        <TouchableOpacity
+          style={{ alignSelf: 'flex-start' }}
+          onPress={() =>
+            navigation.dispatch(DrawerActions.openDrawer()) // open leftSide Drawer function
+          }>
+          <Image
+            source={require('./assets/menu.png')}
+            style={styles.imageStyle} />
+        </TouchableOpacity>
         <Text style={styles.headerText}>
           Home
         </Text>
@@ -29,23 +39,25 @@ function HomeScreen() {
             <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold', color: "black" }}>
               Upload Image
             </Text>
-            <Image source={require('./assets/upload.png')} style={{ height: 25, width: 26, marginLeft: 20 }} />
+            <Image
+              source={require('./assets/upload.png')}
+              style={{ height: 25, width: 26, marginLeft: 20 }} />
           </TouchableOpacity>
         </View>
       </View>
 
       <View style={styles.lower}>
-        <Text style={{ color: 'black', textAlign: 'center', fontWeight: 'bold', fontSize: 20, margin: "5%", }}>
+        <Text style={[styles.buttonText, { margin: "5%", }]}>
           Calculate
         </Text>
 
         <View style={{ alignSelf: 'center', flexDirection: 'row' }}>
           <TouchableOpacity style={styles.button}>
-            <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold', color: 'black' }}>BMI</Text>
+            <Text style={styles.buttonText}>BMI</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.button}>
-            <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold', color: 'black' }}>BMR</Text>
+            <Text style={styles.buttonText}>BMR</Text>
           </TouchableOpacity>
         </View>
 
@@ -54,10 +66,17 @@ function HomeScreen() {
   );
 }
 
-function ProgressScreen() {
+function ProgressScreen({ navigation }) {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       <View style={styles.header}>
+        <TouchableOpacity
+          style={{ alignSelf: 'flex-start' }}
+          onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
+          <Image
+            source={require('./assets/menu.png')}
+            style={styles.imageStyle} />
+        </TouchableOpacity>
         <Text style={styles.headerText}>
           Progress
         </Text>
@@ -66,11 +85,11 @@ function ProgressScreen() {
         <Text style={{ color: 'black', fontSize: 25 }}>BMR</Text>
         <LineChart
           data={{
-            //labels: ["", "", "", "", "", ""],
+            //labels: ["", "", "", "", "", ""],    /Here bottom line labels 
             datasets: [
               {
                 data: [
-                  20,
+                  20,         //here data 
                   35,
                   50,
                   60,
@@ -82,21 +101,21 @@ function ProgressScreen() {
           }}
           width={Dimensions.get("window").width} // from react-native
           height={220}
-          yAxisInterval={1} // optional, defaults to
+          yAxisInterval={1}
           chartConfig={{
             backgroundColor: "white",
             backgroundGradientFrom: "white",
             backgroundGradientTo: "white",
-            decimalPlaces: 0, // optional, defaults to 2dp
-            color: () => `red`,
-            labelColor: () => `blue`,
+            decimalPlaces: 0,
+            color: () => `red`,  //line color
+            labelColor: () => `blue`,    //Left number color
             style: {
               borderRadius: 16
             },
             propsForDots: {
               r: "3",
               strokeWidth: "5",
-              stroke: "blue"
+              stroke: "blue"    //dot color
             }
 
           }}
@@ -109,7 +128,7 @@ function ProgressScreen() {
         <Text style={{ color: 'black', fontSize: 25 }}>BMI</Text>
         <LineChart
           data={{
-            //labels: ["time"],
+            //labels: [""],
             datasets: [
               {
                 data: [
@@ -123,16 +142,16 @@ function ProgressScreen() {
               }
             ]
           }}
-          width={Dimensions.get("window").width} // from react-native
+          width={Dimensions.get("window").width}
           height={220}
-          yAxisInterval={1} // optional, defaults to
+          yAxisInterval={1}
           chartConfig={{
             backgroundColor: "white",
             backgroundGradientFrom: "white",
             backgroundGradientTo: "white",
-            decimalPlaces: 0, // optional, defaults to 2dp
-            color: (opacity = 1) => `red`,
-            labelColor: (opacity = 1) => `blue`,
+            decimalPlaces: 0,
+            color: () => `red`,
+            labelColor: () => `blue`,
             style: {
               borderRadius: 16
             },
@@ -155,12 +174,17 @@ function ProgressScreen() {
   );
 }
 
-
-
-function PredictionScreen() {
+function PredictionScreen({ navigation }) {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.header}>
+        <TouchableOpacity
+          style={{ alignSelf: 'flex-start' }}
+          onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
+          <Image
+            source={require('./assets/menu.png')}
+            style={styles.imageStyle} />
+        </TouchableOpacity>
         <Text style={styles.headerText}>
           Prediction
         </Text>
@@ -184,8 +208,10 @@ function PredictionScreen() {
       <View style={styles.lower}>
 
         <View style={{ flexDirection: 'row', justifyContent: 'center', marginRight: 20 }}>
-          <Image source={require('./assets/12.png')} style={{ height: 30, width: 30, marginRight: 20 }} />
-          <Text style={{ color: 'black', textAlign: 'center', fontWeight: 'bold', fontSize: 20 }}>
+          <Image
+            source={require('./assets/12.png')}
+            style={{ height: 30, width: 30, marginRight: 20 }} />
+          <Text style={styles.buttonText}>
             Your BMI category is :
           </Text>
         </View>
@@ -194,8 +220,10 @@ function PredictionScreen() {
         </Text>
 
         <View style={{ flexDirection: 'row', justifyContent: 'center', marginRight: 20 }}>
-          <Image source={require('./assets/12.png')} style={{ height: 30, width: 30, marginRight: 20 }} />
-          <Text style={{ color: 'black', textAlign: 'center', fontWeight: 'bold', fontSize: 20 }}>
+          <Image
+            source={require('./assets/12.png')}
+            style={{ height: 30, width: 30, marginRight: 20 }} />
+          <Text style={styles.buttonText}>
             Your BMR  :
           </Text>
         </View>
@@ -210,7 +238,12 @@ function PredictionScreen() {
 
 const styles = StyleSheet.create({
 
-  container: {
+  imageStyle: {
+    height: 25,
+    width: 25,
+    alignSelf: 'flex-start',
+    marginLeft: 10,
+    tintColor: 'white'
   },
   fixToText: {
     flexDirection: 'row',
@@ -272,7 +305,12 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
     borderRadius: 20,
-
+  },
+  buttonText: {
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'black'
   },
   buttonProfile: {
     bottom: '20%',
@@ -352,19 +390,22 @@ const TabMenu = () => {
   );
 }
 
-// const Drawer = createDrawerNavigator();
-// const SideMenu = () => {
-//   return (
-//     <Drawer.Navigator>
-//       <Drawer.Screen name="Home" component={HomeScreen} />
-//       <Drawer.Screen name="Prediction" component={PredictionScreen} />
-//     </Drawer.Navigator>
-//   );
-//}
+const Drawer = createDrawerNavigator();
+
+const SideMenu = () => {
+  return (
+    <Drawer.Navigator screenOptions={{ headerShown: false }}>
+      <Drawer.Screen
+        name="TabMenu"
+        component={TabMenu} />
+    </Drawer.Navigator>
+  );
+}
+
 const App = () => {
   return (
     <NavigationContainer options={{ headerShown: false }}>
-      <TabMenu />
+      <SideMenu />
     </NavigationContainer>
   );
 };
